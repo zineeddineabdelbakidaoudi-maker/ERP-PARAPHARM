@@ -1,0 +1,451 @@
+<USER_REQUEST>
+Reply to Antigravity:
+
+The following is a detailed upgrade instruction based on 11 reference screenshots. Every single detail must be implemented exactly as described. I am also attaching the screenshots so you can see them directly. Build everything one section at a time and confirm before moving to the next.
+
+
+
+
+
+SECTION 1 — Fiche Versements Client (Client Payment Dialog)
+Completely rebuild the existing client payment dialog to match this exact layout:
+Header:
+
+Title: "Versement Client" (large bold)
+"N° Reçu" label + text field with placeholder "N° de Reçu manuscrit"
+"Imprimante" label + printer name dropdown (e.g. default system printer) + refresh icon button
+
+Body fields (all bilingual French/Arabic labels):
+
+"Nom / اسم" — searchable name field with magnifier icon
+"Ancien crédit / الرصيد السابق" — read-only display field showing previous balance in green with clock icon
+"Date de versement / تاريخ وساعة الدفع" — date picker showing today + day number in small box + "Heure" time field (auto-filled with current time) + clock icon
+"Montant à Verser / مبلغ الدفع" — large blue header section containing:
+
+Amount written in Arabic words (auto-generated)
+Large bold amount in DA format: 0,00 DA
+"ZERO" text below when amount is 0
+"CENTIMES" label bottom-right of the amount box
+
+
+"Versement Chèque" checkbox (greyed out when not applicable)
+"Rembouressement au client (Après retour,...)" — collapsible checkbox section
+"N° Chèque" — text field with placeholder "Si le versement est par chèque saisie ici le N°"
+"Montant Remise / مبلغ التخفيض" — amount field showing 0,00 DA (yellow background)
+"Nouveau crédit / الرصيد النهائي" — read-only showing new balance in red
+"Observation" — text field with placeholder "Nom du verseur..."
+
+Right panel:
+
+"Impression Bon de Versement" section with radio/checkboxes:
+
+☑ 02 Exemplaires (default selected)
+☐ 01 Exemplaire
+☐ Ne pas Imprimer
+
+
+"Papier" section: ☑ A4, ☐ A5, ☐ 
+<truncated 10433 bytes>
+es
+Portrait / Paysage radio
+"Lignes des séparations colorées" checkbox
+Fiche Minimisée Par Produit + Voir dropdown
+Fiche Minimisée Par Bon + Voir dropdown
+
+
+
+
+
+
+SECTION 11 — Cross-Module Linking (Everything Connected)
+All the above must be fully linked and navigable:
+
+From DebtsPage (Dettes Fournisseurs): clicking "Fiche Fournisseur" opens the Fiche Fournisseur dialog pre-loaded with that supplier
+From Fiche Fournisseur: clicking a BR row opens the full BR document
+From Fiche Client: clicking a BL row opens the full BL document
+From BL form: client picker opens the "Sélection d'un Client" dialog; double-click selects and auto-fills all client fields
+From BC Fournisseur: supplier picker opens "Sélection d'un Fournisseur" dialog
+From Versement Client/Fournisseur dialogs: validate (F10) must update the balance shown in Fiche Client/Fournisseur and in the Debts page immediately
+From BL form: "Versement" field links to the Versement Client dialog
+All credit/debt amounts must recalculate live after any payment or transaction
+Keyboard shortcuts must work everywhere: F10 = Validate, ESC = Cancel, F7 = Caisse
+
+
+
+
+
+
+Global rules:
+
+All dialogs are modal floating windows (MDI child windows) — not full tabs
+Bilingual labels everywhere (French + Arabic) on all financial fields
+All amount fields formatted as: 0,00 DA
+Yellow background = NET/important financial column
+Green background = payment/versement fields
+Red text = final credit/debt amounts
+Cyan highlight = selected row in all pickers
+Orange/yellow highlight = blocked or special status rows
+No online sync, no cloud features
+work directly no plan
+</USER_REQUEST>
+<ADDITIONAL_METADATA>
+The current local time is: 2026-05-20T01:06:23+01:00.
+</ADDITIONAL_METADATA>
+<USER_SETTINGS_CHANGE>
+The user changed setting `Model Selection` from Gemini 3.1 Pro (High) to Gemini 3.5 Flash (Medium). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+</USER_SETTINGS_CHANGE>Created At: 2026-05-20T03:19:46Z
+Completed At: 2026-05-20T03:19:46Z
+File Path: `file:///C:/Users/pc%20gamer/.gemini/antigravity/brain/f913916e-d1b7-4254-b7c3-b44686d3629d/scratch/extracted_section3.txt`
+Total Lines: 153
+Total Bytes: 7783
+Showing lines 1 to 153
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: === STEP 0 (type: USER_INPUT) ===
+
+2: <USER_REQUEST>
+
+3: Reply to Antigravity:
+
+4: 
+
+5: The following is a detailed upgrade instruction based on 11 reference screenshots. Every single detail must be implemented exactly as described. I am also attaching the screenshots so you can see them directly. Build everything one section at a time and confirm before moving to the next.
+
+6: 
+
+7: 
+
+8: 
+
+9: 
+
+10: 
+
+11: SECTION 1 — Fiche Versements Client (Client Payment Dialog)
+
+12: Completely rebuild the existing client payment dialog to match this exact layout:
+
+13: Header:
+
+14: 
+
+15: Title: "Versement Client" (large bold)
+
+16: "N° Reçu" label + text field with placeholder "N° de Reçu manuscrit"
+
+17: "Imprimante" label + printer name dropdown (e.g. default system printer) + refresh icon button
+
+18: 
+
+19: Body fields (all bilingual French/Arabic labels):
+
+20: 
+
+21: "Nom / اسم" — searchable name field with magnifier icon
+
+22: "Ancien crédit / الرصيد السابق" — read-only display field showing previous balance in green with clock icon
+
+23: "Date de versement / تاريخ وساعة الدفع" — date picker showing today + day number in small box + "Heure" time field (auto-filled with current time) + clock icon
+
+24: "Montant à Verser / مبلغ الدفع" — large blue header section containing:
+
+25: 
+
+26: Amount written in Arabic words (auto-generated)
+
+27: Large bold amount in DA format: 0,00 DA
+
+28: "ZERO" text below when amount is 0
+
+29: "CENTIMES" label bottom-right of the amount box
+
+30: 
+
+31: 
+
+32
+<truncated 4930 bytes>
+==========================
+
+128: 
+
+129: === STEP 98 (type: PLANNER_RESPONSE) ===
+
+130: I have successfully completed **SECTION 3 — Sélection d'un Client Dialog (Client Picker)** exactly as described.
+
+131: 
+
+132: ### Key Implementations for Section 3:
+
+133: 1. **Interactive Header Toolbar**:
+
+134:    - `"Recherche Par"` selector defaulting to `"Commnance Par Fr"`.
+
+135:    - Dedicated `"Fr 🇫🇷"` language flag indicator button.
+
+136:    - High-contrast **yellow highlighted** search text field (`#FFF59D` background with deep gold border) that triggers auto-filtering instantly on keystrokes.
+
+137:    - `"Catégorie"` dropdown filter supporting all customer types.
+
+138:    - Standardized quick action controls: **➕ (green)** for adding, **✏️ (yellow)** for editing, **✔️ (dark green)** for confirmation selection, and **❌ (red)** for closing.
+
+139: 2. **Dense Data Grid Layout**:
+
+140:    - Re-ordered columns to exactly match: `Code Client` | `N°` | `Nom` | `Adresse` | `Crédit Max` | `Bloquer`.
+
+141:    - Magnifier and sort arrow indicators (`🔍 ▲▼`) attached directly to each column header.
+
+142:    - Clean number formatting (`DA` suffix) for financial figures.
+
+143: 3. **Advanced Grid Styling & Interaction**:
+
+144:    - Double-clicking any row automatically captures the active selection and submits the dialog.
+
+145:    - Blocked clients (`is_active == 0`) are automatically highlighted in **orange/yellow** (`#FFE082`).
+
+146:    - Selected client row is highlighted in a vibrant **cyan/turquoise** (`#B2DFDB`) to give the professional modern feel.
+
+147:    - The `"Bloquer"` column displays a centered, custom-designed dark-themed **black checkbox** indicating whether the account is blocked.
+
+148:    - Grid sorting is fully enabled and active.
+
+149: 
+
+150: Please confirm so that I can proceed to **SECTION 4 — Sélection d'un Fournisseur Dialog (Supplier Picker)**!
+
+151: ===============================
+
+152: 
+
+153: 
+The above content shows the entire, complete file contents of the requested file.
+Created At: 2026-05-20T03:20:00Z
+Completed At: 2026-05-20T03:20:00Z
+File Path: `file:///C:/Users/pc%20gamer/.gemini/antigravity/brain/f913916e-d1b7-4254-b7c3-b44686d3629d/scratch/full_request.txt`
+Total Lines: 96
+Total Bytes: 4216
+Showing lines 1 to 96
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: <USER_REQUEST>
+
+2: Reply to Antigravity:
+
+3: 
+
+4: The following is a detailed upgrade instruction based on 11 reference screenshots. Every single detail must be implemented exactly as described. I am also attaching the screenshots so you can see them directly. Build everything one section at a time and confirm before moving to the next.
+
+5: 
+
+6: 
+
+7: 
+
+8: 
+
+9: 
+
+10: SECTION 1 — Fiche Versements Client (Client Payment Dialog)
+
+11: Completely rebuild the existing client payment dialog to match this exact layout:
+
+12: Header:
+
+13: 
+
+14: Title: "Versement Client" (large bold)
+
+15: "N° Reçu" label + text field with placeholder "N° de Reçu manuscrit"
+
+16: "Imprimante" label + printer name dropdown (e.g. default system printer) + refresh icon button
+
+17: 
+
+18: Body fields (all bilingual French/Arabic labels):
+
+19: 
+
+20: "Nom / اسم" — searchable name field with magnifier icon
+
+21: "Ancien crédit / الرصيد السابق" — read-only display field showing previous balance in green with clock icon
+
+22: "Date de versement / تاريخ وساعة الدفع" — date picker showing today + day number in small box + "Heure" time field (auto-filled with current time) + clock icon
+
+23: "Montant à Verser / مبلغ الدفع" — large blue header section containing:
+
+24: 
+
+25: Amount written in Arabic words (auto-generated)
+
+26: Large bold amount in DA format: 0,00 DA
+
+27: "ZERO" text below when amount is 0
+
+28: "CENTIMES" label bottom-right of the amount box
+
+29: 
+
+30: 
+
+31: "Versement Chèque" checkbox (greyed out when
+<truncated 1073 bytes>
+ and navigable:
+
+62: 
+
+63: From DebtsPage (Dettes Fournisseurs): clicking "Fiche Fournisseur" opens the Fiche Fournisseur dialog pre-loaded with that supplier
+
+64: From Fiche Fournisseur: clicking a BR row opens the full BR document
+
+65: From Fiche Client: clicking a BL row opens the full BL document
+
+66: From BL form: client picker opens the "Sélection d'un Client" dialog; double-click selects and auto-fills all client fields
+
+67: From BC Fournisseur: supplier picker opens "Sélection d'un Fournisseur" dialog
+
+68: From Versement Client/Fournisseur dialogs: validate (F10) must update the balance shown in Fiche Client/Fournisseur and in the Debts page immediately
+
+69: From BL form: "Versement" field links to the Versement Client dialog
+
+70: All credit/debt amounts must recalculate live after any payment or transaction
+
+71: Keyboard shortcuts must work everywhere: F10 = Validate, ESC = Cancel, F7 = Caisse
+
+72: 
+
+73: 
+
+74: 
+
+75: 
+
+76: 
+
+77: 
+
+78: Global rules:
+
+79: 
+
+80: All dialogs are modal floating windows (MDI child windows) — not full tabs
+
+81: Bilingual labels everywhere (French + Arabic) on all financial fields
+
+82: All amount fields formatted as: 0,00 DA
+
+83: Yellow background = NET/important financial column
+
+84: Green background = payment/versement fields
+
+85: Red text = final credit/debt amounts
+
+86: Cyan highlight = selected row in all pickers
+
+87: Orange/yellow highlight = blocked or special status rows
+
+88: No online sync, no cloud features
+
+89: work directly no plan
+
+90: </USER_REQUEST>
+
+91: <ADDITIONAL_METADATA>
+
+92: The current local time is: 2026-05-20T01:06:23+01:00.
+
+93: </ADDITIONAL_METADATA>
+
+94: <USER_SETTINGS_CHANGE>
+
+95: The user changed setting `Model Selection` from Gemini 3.1 Pro (High) to Gemini 3.5 Flash (Medium). No need to comment on this change if the user doesn't ask about it. If reporting what model you are, please use a human readable name instead of the exact string.
+
+96: </USER_SETTINGS_CHANGE>
+The above content shows the entire, complete file contents of the requested file.
+Created At: 2026-05-20T03:21:37Z
+Completed At: 2026-05-20T03:21:37Z
+File Path: `file:///C:/Users/pc%20gamer/.gemini/antigravity/brain/f913916e-d1b7-4254-b7c3-b44686d3629d/scratch/full_request.txt`
+Total Lines: 96
+Total Bytes: 4216
+Showing lines 1 to 96
+The following code has been modified to include a line number before every line, in the format: <line_number>: <original_line>. Please note that any changes targeting the original code should remove the line number, colon, and leading space.
+1: <USER_REQUEST>
+
+2: Reply to Antigravity:
+
+3: 
+
+4: The following is a detailed upgrade instruction based on 11 reference screenshots. Every single detail must be implemented exactly as described. I am also attaching the screenshots so you can see them directly. Build everything one section at a time and confirm before moving to the next.
+
+5: 
+
+6: 
+
+7: 
+
+8: 
+
+9: 
+
+10: SECTION 1 — Fiche Versements Client (Client Payment Dialog)
+
+11: Completely rebuild the existing client payment dialog to match this exact layout:
+
+12: Header:
+
+13: 
+
+14: Title: "Versement Client" (large bold)
+
+15: "N° Reçu" label + text field with placeholder "N° de Reçu manuscrit"
+
+16: "Imprimante" label + printer name dropdown (e.g. default system printer) + refresh icon button
+
+17: 
+
+18: Body fields (all bilingual French/Arabic labels):
+
+19: 
+
+20: "Nom / اسم" — searchable name field with magnifier icon
+
+21: "Ancien crédit / الرصيد السابق" — read-only display field showing previous balance in green with clock icon
+
+22: "Date de versement / تاريخ وساعة الدفع" — date picker showing today + day number in small box + "Heure" time field (auto-filled with current time) + clock icon
+
+23: "Montant à Verser / مبلغ الدفع" — large blue header section containing:
+
+24: 
+
+25: Amount written in Arabic words (auto-generated)
+
+26: Large bold amount in DA format: 0,00 DA
+
+27: "ZERO" text below when amount is 0
+
+28: "CENTIMES" label bottom-right of the amount box
+
+29: 
+
+30: 
+
+31: "Versement Chèque" checkbox (greyed out when
+<truncated 1073 bytes>
+ and navigable:
+
+62: 
+
+63: From DebtsPage (Dettes Fournisseurs): clicking "Fiche Fournisseur" opens the Fiche Fournisseur dialog pre-loaded with that supplier
+
+64: From Fiche Fournisseur: clicking a BR row opens the full BR document
+
+65: From Fiche Client: clicking a BL row opens the full BL document
+
+66: From BL form: client picker opens the "Sélection d'un Client" dialog; double-click selects and auto-fills all client fields
+
+67: From BC Fournisseur: supplier picker opens "Sélection d'un Fournisseur" dialog
+
+68: From Versement Client/Fournisseur dialogs: validate (F10) must update the balance shown in Fiche Client/Fournisseur and in the Debts page immediately
+
+69: From BL form: "Versement" field links to the Versement Client dialog
+
+70: All credit/debt amounts must recalculate live after any payment or transaction
+
+71: Keyboard shortcuts must work everywhere: F10 = Validate, 

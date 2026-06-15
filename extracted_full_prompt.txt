@@ -1,0 +1,88 @@
+Reply to Antigravity:
+
+The following is a detailed upgrade instruction based on 11 reference screenshots. Every single detail must be implemented exactly as described. I am also attaching the screenshots so you can see them directly. Build everything one section at a time and confirm before moving to the next.
+
+
+
+
+
+SECTION 1 — Fiche Versements Client (Client Payment Dialog)
+Completely rebuild the existing client payment dialog to match this exact layout:
+Header:
+
+Title: "Versement Client" (large bold)
+"N° Reçu" label + text field with placeholder "N° de Reçu manuscrit"
+"Imprimante" label + printer name dropdown (e.g. default system printer) + refresh icon button
+
+Body fields (all bilingual French/Arabic labels):
+
+"Nom / اسم" — searchable name field with magnifier icon
+"Ancien crédit / الرصيد السابق" — read-only display field showing previous balance in green with clock icon
+"Date de versement / تاريخ وساعة الدفع" — date picker showing today + day number in small box + "Heure" time field (auto-filled with current time) + clock icon
+"Montant à Verser / مبلغ الدفع" — large blue header section containing:
+
+Amount written in Arabic words (auto-generated)
+Large bold amount in DA format: 0,00 DA
+"ZERO" text below when amount is 0
+"CENTIMES" label bottom-right of the amount box
+
+
+"Versement Chèque" checkbox (greyed out when not applicable)
+"Rembouressement au client (Après retour,...)" — collapsible checkbox section
+"N° Chèque" — text field with placeholder "Si le versement est par chèque saisie ici le N°"
+"Montant Remise / مبلغ التخفيض" — amount field showing 0,00 DA (yellow background)
+"Nouveau crédit / الرصيد النهائي" — read-only showing new balance in red
+"Observation" — text field with placeholder "Nom du verseur..."
+
+Right panel:
+
+"Impression Bon de Versement" section with radio/checkboxes:
+
+☑ 02 Exemplaires (default selected)
+☐ 01 Exemplaire
+☐ Ne pas Imprimer
+
+
+"Papier" section: ☑ A4, ☐ A5, ☐ 
+<truncated 10433 bytes>
+es
+Portrait / Paysage radio
+"Lignes des séparations colorées" checkbox
+Fiche Minimisée Par Produit + Voir dropdown
+Fiche Minimisée Par Bon + Voir dropdown
+
+
+
+
+
+
+SECTION 11 — Cross-Module Linking (Everything Connected)
+All the above must be fully linked and navigable:
+
+From DebtsPage (Dettes Fournisseurs): clicking "Fiche Fournisseur" opens the Fiche Fournisseur dialog pre-loaded with that supplier
+From Fiche Fournisseur: clicking a BR row opens the full BR document
+From Fiche Client: clicking a BL row opens the full BL document
+From BL form: client picker opens the "Sélection d'un Client" dialog; double-click selects and auto-fills all client fields
+From BC Fournisseur: supplier picker opens "Sélection d'un Fournisseur" dialog
+From Versement Client/Fournisseur dialogs: validate (F10) must update the balance shown in Fiche Client/Fournisseur and in the Debts page immediately
+From BL form: "Versement" field links to the Versement Client dialog
+All credit/debt amounts must recalculate live after any payment or transaction
+Keyboard shortcuts must work everywhere: F10 = Validate, ESC = Cancel, F7 = Caisse
+
+
+
+
+
+
+Global rules:
+
+All dialogs are modal floating windows (MDI child windows) — not full tabs
+Bilingual labels everywhere (French + Arabic) on all financial fields
+All amount fields formatted as: 0,00 DA
+Yellow background = NET/important financial column
+Green background = payment/versement fields
+Red text = final credit/debt amounts
+Cyan highlight = selected row in all pickers
+Orange/yellow highlight = blocked or special status rows
+No online sync, no cloud features
+work directly no plan

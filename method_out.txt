@@ -1,0 +1,18 @@
+def _print_saved_delivery(self, delivery):
+    try:
+        from app.utils.pdf_exporter import PDFExporter
+        from app.config import config
+        from PySide6.QtWidgets import QFileDialog, QMessageBox
+        debt = self.db_session.query(Debt).filter(Debt.entity_type == 'CLIENT', Debt.reference_id == (delivery.sale_id or delivery.id), Debt.is_deleted == 0).first()
+        total_amount = debt.total_amount if debt else 0.0
+        paid_amount = debt.paid_amount if debt else 0.0
+        old_debts = self.db_session.query(Debt).filter(Debt.entity_type == 'CLIENT', Debt.entity_id == delivery.client_id, Debt.id != (debt.id if debt else 0), Debt.status.in_(['PENDING', 'PARTIAL']), Debt.is_deleted == 0).all()
+        old_bal = sum((d.remaining_amount or 0.0 for d in old_debts))
+        co_info = {'name': getattr(config, 'company_name', 'ParaFarm ERP'), 'address': getattr(config, 'company_address', 'Alger, Algérie'), 'phone': getattr(config, 'company_phone', '—'), 'nif': getattr(config, 'company_nif', '—')}
+        file_path, _ = QFileDialog.getSaveFileName(self, 'Enregistrer BL PDF', f'BL_{delivery.delivery_number}.pdf', 'PDF Files (*.pdf)')
+        if file_path:
+            self.db_session.refresh(delivery)
+            PDFExporter.export_delivery_to_pdf(file_path=file_path, delivery=delivery, items=delivery.items, company_info=co_info, old_balance=old_bal, paid_amount=paid_amount, total_amount=total_amount)
+            QMessageBox.information(self, 'PDF généré', f'BL PDF enregistré:\n{file_path}')
+    except Exception as e:
+        QMessageBox.warning(self, 'PDF', f'Erreur PDF: {str(e)}')

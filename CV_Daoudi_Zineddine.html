@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV - Daoudi Zineddine Abdelbaki</title>
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <!-- Font Awesome for Icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- html2pdf.js for PDF export -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
+    <style>
+        :root {
+            --primary-bg: #1A252C;
+            --primary-text: #ECF0F1;
+            --secondary-bg: #FFFFFF;
+            --secondary-text: #2C3E50;
+            --accent: #2980B9;
+            --text-light: #7F8C8D;
+            --font-main: 'Roboto', sans-serif;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+
+        body {
+            font-family: var(--font-main);
+            background-color: #f4f7f6;
+            color: var(--secondary-text);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 40px 20px;
+        }
+
+        .controls {
+            margin-bottom: 25px;
+        }
+
+        .btn-export {
+            background-color: var(--accent);
+            color: #fff;
+            border: none;
+            padding: 12px 24px;
+            font-size: 16px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease, transform 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .btn-export:hover {
+            background-color: #1F618D;
+            transform: translateY(-2px);
+        }
+
+        /* A4 Format */
+        .cv-wrapper {
+            width: 210mm;
+            min-height: 297mm;
+            background-color: var(--secondary-bg);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.15);
+            display: flex;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* LEFT COLUMN */
+        .left-col {
+            width: 35%;
+            background-color: var(--primary-bg);
+            color: var(--primary-text);
+            padding: 40px 30px;
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .name-section {
+            margin-bottom: 10px;
+        }
+
+        .name-section h1 {
+            font-size: 26px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            line-height: 1.3;
+            color: #FFFFFF;
+        }
+
+        .section-left h2 {
+            font-size: 16px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+            padding-bottom: 8px;
+            margin-bottom: 15px;
+            color: #FFFFFF;
+        }
+
+        .contact-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-list li {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .contact-list i {
+            width: 16px;
+            color: var(--accent);
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .skills-category {
+            margin-bottom: 18px;
+        }
+
+        .skills-category:last-child {
+            margin-bottom: 0;
+        }
+
+        .skills-category h3 {
+            font-size: 13px;
+            font-weight: 500;
+            margin-bottom: 10px;
+            color: #BDC3C7;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .skills-list {
+            list-style: none;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+
+        .skills-list li {
+            background-color: rgba(255,255,255,0.08);
+            padding: 5px 10px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 400;
+        }
+
+        .languages-list, .certifications-list {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            font-size: 13px;
+        }
+
+        .certifications-list li {
+            position: relative;
+            padding-left: 15px;
+            line-height: 1.4;
+        }
+
+        .certifications-list li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+        }
+
+        /* RIGHT COLUMN */
+        .right-col {
+            width: 65%;
+            padding: 40px;
+            display: flex;
+            flex-direction: column;
+            gap: 28px;
+        }
+
+        .section-right h2 {
+            font-size: 18px;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--primary-bg);
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 6px;
+            margin-bottom: 15px;
+        }
+
+        .profile-text {
+            font-size: 13.5px;
+            line-height: 1.6;
+            text-align: justify;
+            color: #444;
+        }
+
+        .timeline-item {
+            margin-bottom: 18px;
+        }
+        
+        .timeline-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .timeline-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .timeline-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: var(--secondary-text);
+        }
+
+        .timeline-date {
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--accent);
+            white-space: nowrap;
+            margin-left: 10px;
+        }
+
+        .timeline-subtitle {
+            font-size: 14px;
+            font-weight: 500;
+            color: #555;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+
+        .timeline-desc {
+            font-size: 13.5px;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        .timeline-list {
+            list-style: none;
+            margin-top: 8px;
+        }
+
+        .timeline-list li {
+            font-size: 13.5px;
+            position: relative;
+            padding-left: 16px;
+            margin-bottom: 6px;
+            line-height: 1.5;
+            color: #444;
+        }
+
+        .timeline-list li::before {
+            content: "▹";
+            position: absolute;
+            left: 0;
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        /* Print Settings */
+        @media print {
+            body {
+                background: none;
+                padding: 0;
+            }
+            .controls {
+                display: none;
+            }
+            .cv-wrapper {
+                box-shadow: none;
+                width: 100%;
+                height: 100%;
+                page-break-after: avoid;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="controls">
+        <button class="btn-export" onclick="exportPDF()">
+            <i class="fas fa-file-pdf"></i> Exporter en PDF
+        </button>
+    </div>
+
+    <div class="cv-wrapper" id="cv-content">
+        <!-- Colonne Gauche -->
+        <aside class="left-col">
+            <div class="name-section">
+                <h1>Daoudi<br>Zineddine<br>Abdelbaki</h1>
+            </div>
+
+            <section class="section-left">
+                <h2>Coordonnées</h2>
+                <ul class="contact-list">
+                    <li><i class="fas fa-phone"></i> 0774973543</li>
+                    <li><i class="fas fa-envelope"></i> inz172400@gmail.com</li>
+                    <li><i class="fas fa-map-marker-alt"></i> Bordj Bou Arréridj, Algérie</li>
+                </ul>
+            </section>
+
+            <section class="section-left">
+                <h2>Compétences</h2>
+                
+                <div class="skills-category">
+                    <h3>Développement & Langages</h3>
+                    <ul class="skills-list">
+                        <li>HTML5</li>
+                        <li>CSS3</li>
+                        <li>JavaScript</li>
+                        <li>PHP</li>
+                        <li>Laravel</li>
+                        <li>MySQL</li>
+                        <li>Node.js</li>
+                        <li>React.js</li>
+                        <li>Python</li>
+                        <li>Electron</li>
+                    </ul>
+                </div>
+
+                <div class="skills-category">
+                    <h3>Data & Outils</h3>
+                    <ul class="skills-list">
+                        <li>Google Colab</li>
+                        <li>NumPy</li>
+                        <li>Pandas</li>
+                        <li>Matplotlib</li>
+                        <li>Git / GitHub</li>
+                        <li>Linux</li>
+                        <li>VS Code</li>
+                    </ul>
+                </div>
+            </section>
+
+            <section class="section-left">
+                <h2>Langues</h2>
+                <ul class="languages-list">
+                    <li>Arabe</li>
+                    <li>Français</li>
+                    <li>Anglais</li>
+                </ul>
+            </section>
+
+            <section class="section-left">
+                <h2>Certifications</h2>
+                <ul class="certifications-list">
+                    <li>Certificat de Développement Web — Innobyte Internship (2025)</li>
+                    <li>Certificat de Leadership — Innobyte 2.0, ESTIN Alumni Network (2026)</li>
+                    <li>Certificat Project Hunters — Hackathon (2025)</li>
+                </ul>
+            </section>
+        </aside>
+
+        <!-- Colonne Droite -->
+        <main class="right-col">
+            <section class="section-right">
+                <h2>Profil</h2>
+                <p class="profile-text">
+                    Je suis un étudiant en Master 1 d'Ingénierie de l'Informatique Décisionnelle (BI) à l'Université Mohamed El Bachir El Ibrahimi de Bordj Bou Arréridj. Passionné par l'informatique, je suis spécialisé dans le développement d'applications mobiles, desktop et web, ainsi que dans l'analyse de données. En tant que développeur freelance, je conçois des solutions logicielles complètes et modernes pour répondre efficacement aux besoins de mes clients.
+                </p>
+            </section>
+
+            <section class="section-right">
+                <h2>Expériences</h2>
+                
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Stagiaire Développeur Full Stack</h3>
+                        <span class="timeline-date">Nov - Déc 2024</span>
+                    </div>
+                    <div class="timeline-subtitle">Condor Electronics</div>
+                    <p class="timeline-desc">
+                        Stage pratique de 1 mois en développement Full Stack, me permettant d'acquérir une expérience concrète en milieu professionnel.
+                    </p>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Développeur Freelance</h3>
+                    </div>
+                    <div class="timeline-subtitle">Télétravail</div>
+                    <ul class="timeline-list">
+                        <li>Développement d'applications Web, Mobiles et Desktop.</li>
+                        <li>Conception de solutions informatiques sur mesure.</li>
+                        <li>Analyse de données avec Python (Pandas, NumPy, Matplotlib).</li>
+                    </ul>
+                </div>
+
+            </section>
+
+            <section class="section-right">
+                <h2>Formation</h2>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Master en Informatique (BI)</h3>
+                        <span class="timeline-date">2025 – 2026</span>
+                    </div>
+                    <div class="timeline-subtitle">Université de Bordj Bou Arréridj, Algérie</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Licence en Informatique</h3>
+                        <span class="timeline-date">2022 – 2025</span>
+                    </div>
+                    <div class="timeline-subtitle">Université de Bordj Bou Arréridj, Algérie</div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-header">
+                        <h3 class="timeline-title">Formation Mécatronique Automobile</h3>
+                        <span class="timeline-date">Durée : 2 mois</span>
+                    </div>
+                    <p class="timeline-desc">
+                        Apprentissage des systèmes mécatroniques et techniques de programmation de clés automobiles.
+                    </p>
+                </div>
+
+            </section>
+
+            <section class="section-right">
+                <h2>Réalisations & Projets</h2>
+                <ul class="timeline-list">
+                    <li><strong>Application ERP & Gestion Commerciale :</strong> Développement d'un logiciel Desktop complet pour la gestion des ventes, des stocks et ERP adapté aux parapharmacies.</li>
+                    <li><strong>Plateforme de Santé Intelligente :</strong> Création d'un site web intelligent pour le suivi et la gestion des maladies chroniques (spécialement le diabète) intégrant un module e-commerce.</li>
+                    <li><strong>Study Hub DZ :</strong> Plateforme web intelligente universitaire pour la révision et l'apprentissage, proposant le partage de cours, de TP, et un générateur de QCM.</li>
+                    <li><strong>TabibVerify (Projet de Compétition) :</strong> API de vérification d'identité sécurisée pour les professionnels de santé en Algérie. Intègre l'extraction OCR côté client (Tesseract.js), la vérification CNOM, la détection de présence (Liveness/NFC) et un algorithme de score de confiance. Stack : Supabase, Upstash Redis.</li>
+                    <li>5e place sur 20 équipes lors d'un Hackathon de 3 jours — Univ. de M'Sila 2026, Elec Club.</li>
+                    <li>4e place dans une compétition de Leadership — Entrepreneurship & Startup Club.</li>
+                </ul>
+            </section>
+        </main>
+    </div>
+
+    <script>
+        function exportPDF() {
+            const element = document.getElementById('cv-content');
+            
+            const opt = {
+                margin:       0,
+                filename:     'CV_Daoudi_Zineddine.pdf',
+                image:        { type: 'jpeg', quality: 0.98 },
+                html2canvas:  { scale: 2, useCORS: true },
+                jsPDF:        { unit: 'mm', format: 'a4', orientation: 'portrait' }
+            };
+
+            html2pdf().set(opt).from(element).save();
+        }
+    </script>
+</body>
+</html>

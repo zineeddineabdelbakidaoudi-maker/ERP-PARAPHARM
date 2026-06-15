@@ -1,0 +1,118 @@
+========================================================================
+                      🏥 PARAFARM ERP — MANUEL D'UTILISATION
+========================================================================
+
+Ce guide vous présente la structure de l'application, le rôle de chaque option de la
+barre latérale (sidebar), ainsi que les flux de travail (workflows) recommandés.
+
+------------------------------------------------------------------------
+1. EXPLICATION DE LA BARRE LATÉRALE (SIDEBAR)
+------------------------------------------------------------------------
+La barre latérale regroupe les fonctionnalités de l'ERP par thèmes logiques :
+
+📌 SECTION : GÉNÉRAL
+• Tableau de Bord : Page d'accueil interactive affichant vos indicateurs clés (revenu
+  du jour, nombre de ventes, alertes de stock bas, dettes) ainsi que deux graphiques
+  chargés en arrière-plan (Top 5 des produits vendus et Évolution des revenus sur 7 jours).
+• Point de Vente (POS) : L'interface de caisse ultra-rapide pour enregistrer vos ventes.
+  Prend en charge les raccourcis clavier (F2 pour rechercher, F12 pour valider l'encaissement,
+  ESC pour effacer la ligne), les lecteurs de codes-barres, les remises et les paiements partiels.
+• Produits & Catégories : Gestion du catalogue de la pharmacie/parapharmacie.
+
+📌 SECTION : VENTES
+• Commandes Client : Bons de commande créés à la demande pour vos clients grossistes.
+  Suit le cycle complet : Brouillon (Draft) → Validé → Terminé.
+• Factures : Facturation officielle avec calculs détaillés des taxes (TVA standard à 19%,
+  réduite à 9%, ou exonérée). Permet d'imprimer ou de générer des factures PDF professionnelles.
+• Avoirs Client : Gestion des retours d'articles vendus, avec édition d'avoirs financiers.
+• Clients & Fournisseurs : Gestion de vos annuaires de tiers (crédit maximum autorisé,
+  catégories, téléphones, coordonnées).
+
+📌 SECTION : OBJECTIFS (🎯 NOUVEAU)
+• Objectifs Clients : Définissez des objectifs mensuels/trimestriels de volume et de chiffre
+  d'affaires pour vos clients et suivez leur avancement via une barre de progression de couleur.
+• Objectifs Fourn. : Définissez des objectifs d'achats auprès de vos fournisseurs pour
+  optimiser vos marges et vos remises de fin d'année.
+
+📌 SECTION : ACHATS
+• Bons de Commande (PO) : Commandes d'achats adressées à vos fournisseurs.
+• Réceptions (Achats) : Validation de l'arrivée physique des cartons dans vos entrepôts,
+  permettant de créer de nouveaux lots (lots, date de péremption, coût unitaire) en stock.
+• Retours Fourn. : Enregistrement des retours de produits non conformes ou défectueux.
+
+📌 SECTION : ENTREPÔT
+• État du Stock : Visualisation en temps réel de vos quantités par produit et par lot.
+• Entrepôts : Gestion multi-dépôts pour localiser précisément vos marchandises.
+• Inventaire : Saisie de comptage physique pour effectuer des ajustements automatiques
+  d'écart de stock (écarts en plus/en moins).
+
+📌 SECTION : LOGISTIQUE (🚚 NOUVEAU)
+• Livraisons : Bons de livraison triés par zone, affichant le statut de livraison (En attente,
+  En transit, Livré, Échoué) et la tournée attribuée.
+• Véhicules : Gestion de votre flotte logistique (camions, camionnettes, statut actif/inactif).
+• Tournées (Routes) : Création et planification des trajets avec assignation du chauffeur,
+  du véhicule, et l'ordre chronologique des points d'arrêt (stops).
+
+📌 SECTION : FINANCES
+• Dettes : Suivi exhaustif des dettes clients (crédits accordés en caisse) et fournisseurs
+  (achats non réglés), avec historique des remboursements partiels.
+• Caisse : Suivi des mouvements d'espèces dans le tiroir-caisse (ouverture de session,
+  fond de caisse, dépôts/retraits manuels, clôture).
+• Rapports : Rapports financiers pré-intégrés (Ventes, Bénéfices, COGS - coût d'achat réel
+  des produits vendus basé sur les lots FEFO).
+• Générateur Rapports (📊 NOUVEAU) : Assistant sur mesure (en 4 étapes) pour créer vos propres
+  rapports ad-hoc sur n'importe quel module, enregistrer les filtres et les exporter en PDF/CSV.
+
+📌 SECTION : SYSTÈME
+• Étiquettes : Impression de codes-barres et de prix au format planche A4 ou thermique.
+• Péremption : Alertes sur les lots périmés (bloqués en vente) ou proches de péremption (< 30j).
+• Utilisateurs & Journal : Gestion des comptes (Admin, Caissier, Comptable) et logs d'audit.
+• Paramètres & Sauvegarde : Configuration générale de l'ERP et sauvegardes manuelles/automatiques.
+
+------------------------------------------------------------------------
+2. FLUX DE TRAVAIL STANDARD (WORKFLOWS)
+------------------------------------------------------------------------
+
+🛡️ WORKFLOW 1 : APPROVISIONNEMENT & COMPLIANCE PHARMACEUTIQUE (FEFO)
+1. Allez dans ACHATS > Bons de Commande et créez une commande d'achat.
+2. Une fois livrée par le fournisseur, allez dans ACHATS > Réceptions (Achats).
+3. Entrez les informations indispensables pour la traçabilité de la pharmacie :
+   - Numéro de Lot (Batch Number)
+   - Date de Péremption
+   - Prix d'Achat Réel (COGS)
+4. En validant la réception, les stocks augmentent automatiquement.
+5. Si un lot arrive à sa date de péremption, il apparaît dans SYSTÈME > Péremption et
+   est AUTOMATIQUEMENT verrouillé en caisse pour empêcher toute vente illégale.
+
+🛒 WORKFLOW 2 : VENTE RAPIDE EN COMPTOIR (CAISSE/POS)
+1. Ouvrez une session de caisse dans FINANCES > Caisse (Déclarez le fond de caisse initial).
+2. Ouvrez le module Point de Vente (POS).
+3. Scannez un produit (ou tapez F2 pour rechercher par nom).
+4. Le système applique automatiquement le principe FEFO (First-Expired-First-Out) : il déduit
+   le stock en priorité du lot le plus ancien / le plus proche de la péremption.
+5. Appliquez une remise globale ou par ligne si nécessaire.
+6. Validez le paiement (F12) :
+   - Si le client paie par crédit, le solde restant est reporté dans FINANCES > Dettes.
+7. Un ticket thermique ou une facture PDF est automatiquement généré.
+
+🚚 WORKFLOW 3 : PLANIFICATION ET SUIVI LOGISTIQUE
+1. Lors d'une commande client importante, un Bon de Livraison (LVR) est créé dans LOGISTIQUE.
+2. Allez dans LOGISTIQUE > Tournées (Routes) et créez une nouvelle tournée (ex: "Route Ouest").
+3. Assignez un véhicule actif (créé au préalable dans Véhicules) et le nom du chauffeur.
+4. Ajoutez vos livraisons comme étapes de livraison en précisant l'ordre de passage.
+5. En caisse ou dans le module Livraisons, le statut de la livraison passe à "En transit".
+6. Une fois le colis remis, le chauffeur confirme : le statut passe à "Livré", mettant à
+   jour l'inventaire en temps réel et libérant le bon.
+
+📊 WORKFLOW 4 : PILOTAGE & RAPPORTS AD-HOC
+1. Allez dans FINANCES > Générateur Rapports.
+2. Étape 1 : Sélectionnez votre source de données (ex: "Inventaire" ou "Ventes").
+3. Étape 2 : Cochez uniquement les colonnes qui vous intéressent.
+4. Étape 3 : Filtrez par période ou statut (ex: Factures "VALIDATED" uniquement).
+5. Étape 4 : Cliquez sur "Générer l'Aperçu" pour voir le tableau en direct.
+6. Cliquez sur "Sauvegarder Modèle" pour le retrouver instantanément dans votre menu latéral gauche.
+7. Exportez le résultat en PDF professionnel format A4 landscape ou sous forme de fichier Excel/CSV.
+
+========================================================================
+                           🏥 FIN DU GUIDE
+========================================================================

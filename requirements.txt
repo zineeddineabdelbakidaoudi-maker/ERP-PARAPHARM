@@ -1,0 +1,27 @@
+# ParaFarm ERP — Dependencies
+# Core UI
+PySide6>=6.6.0
+
+# Database
+SQLAlchemy>=2.0.0
+alembic>=1.13.0
+
+# Security
+bcrypt>=4.1.0
+
+# Reports & Export
+reportlab>=4.1.0
+pandas>=2.2.0
+openpyxl>=3.1.0
+matplotlib>=3.8.0
+
+# Printing
+pywin32>=306
+
+# Barcode
+python-barcode>=0.15.0
+qrcode>=7.4.0
+Pillow>=10.0.0
+
+# Packaging (dev)
+# pyinstaller>=6.0.0
